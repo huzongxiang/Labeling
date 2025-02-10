@@ -1,0 +1,11 @@
+_target_: src.models.labeling_module.LabelingModule
+
+model:
+  _target_: src.models.components.GroundingDINOModel
+  model_name: "IDEA-Research/grounding-dino-tiny"
+  device: "cuda"
+  cache_dir: ${paths.cache_dir}
+  text: "person."  # 默认检测人
+  box_threshold: 0.25
+  text_threshold: 0.25
+  

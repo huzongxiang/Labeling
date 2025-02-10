@@ -1,0 +1,11 @@
+# 项目根目录
+root_dir: ${oc.env:PROJECT_ROOT}
+
+# 数据相关目录
+data_dir: ${paths.root_dir}/datas
+
+# 模型相关目录
+cache_dir: ${paths.root_dir}/models
+
+# 输出目录
+output_dir: ${paths.root_dir}/outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}

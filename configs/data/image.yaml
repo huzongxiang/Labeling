@@ -1,0 +1,15 @@
+_target_: src.data.data_module.DataModule
+
+source:
+  _target_: src.data.components.source.ImageSource
+  src_dir: "/path/to/images"
+  data_dir: ${paths.data_dir}
+  name: "local_images"
+  extensions: [".jpg", ".jpeg", ".png"]
+  recursive: false
+
+processor:
+  _target_: src.data.components.processor.ImageProcessor
+  dataset_name: "local_images"
+  data_dir: ${paths.data_dir}
+  save_format: "jpg"

@@ -1,0 +1,12 @@
+_target_: src.models.labeling_module.LabelingModule
+
+model:
+  _target_: src.models.components.florence.FlorenceModel
+  model_name: "microsoft/Florence-2-large"
+  device: "cuda"
+  cache_dir: ${paths.cache_dir}
+  task_prompt: "<OD>"  # 默认执行目标检测任务
+  text_input: null  # 文本输入（部分任务需要）
+  max_new_tokens: 1024  # 生成最大token数
+  num_beams: 3  # beam search数量
+  

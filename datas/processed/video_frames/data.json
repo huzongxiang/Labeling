@@ -1,0 +1,5 @@
+{
+  "images_dir": "/Users/huzongxiang/Nutstore Files/我的坚果云/coding/labeling/datas/raw/car/images",
+  "annotations_file": "/Users/huzongxiang/Nutstore Files/我的坚果云/coding/labeling/datas/processed/video_frames/annotations/annotations.json",
+  "modified": false
+}

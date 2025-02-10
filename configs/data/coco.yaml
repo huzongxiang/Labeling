@@ -1,0 +1,14 @@
+_target_: src.data.data_module.DataModule
+
+source:
+  _target_: src.data.components.source.COCOSource
+  images_url: "http://images.cocodataset.org/zips/train2017.zip"
+  annotations_url: "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+  data_dir: ${paths.data_dir}
+
+processor:
+  _target_: src.data.components.processor.COCOProcessor
+  dataset_name: "coco"
+  data_dir: ${paths.data_dir}
+  save_format: "jpg"
+  category_id: 1 # 1 for person

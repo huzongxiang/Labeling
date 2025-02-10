@@ -1,0 +1,75 @@
+[2025-01-08 16:58:46,593][src.utils.utils][INFO] - 从 /Users/huzongxiang/Nutstore Files/我的坚果云/coding/labeling/.env 加载环境变量
+[2025-01-08 16:58:46,593][src.utils.utils][INFO] - 设置 HuggingFace 镜像: https://hf-mirror.com
+[2025-01-08 16:58:46,595][main][INFO] - 配置信息:
+seed: 42
+paths:
+  root_dir: ${oc.env:PROJECT_ROOT}
+  data_dir: ${paths.root_dir}/datas
+  cache_dir: ${paths.root_dir}/models
+  output_dir: ${paths.root_dir}/outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+data:
+  _target_: src.data.data_module.DataModule
+  source:
+    _target_: src.data.components.source.VideoSource
+    video_path: /Users/huzongxiang/Downloads/car.mp4
+    data_dir: ${paths.data_dir}
+    start_frame: 0
+    end_frame: null
+    step: 10
+  processor:
+    _target_: src.data.components.processor.VideoFrameProcessor
+    dataset_name: video_frames
+    data_dir: ${paths.data_dir}
+    save_format: jpg
+model:
+  _target_: src.models.labeling_module.LabelingModule
+  model:
+    _target_: src.models.components.YOLODetector
+    model_name: yolov8n.pt
+    device: cpu
+    cache_dir: ${paths.cache_dir}
+    conf_thres: 0.25
+    iou_thres: 0.45
+    classes:
+    - 0
+pipeline:
+  _target_: src.pipeline.pipeline_module.PipelineModule
+  prepipeline:
+    _target_: src.pipeline.components.DefaultPrePipeline
+    dataset_cls:
+      _target_: src.pipeline.components.datasets.ImageDataset
+      _partial_: true
+      transform:
+        _target_: src.pipeline.components.datasets.transform.YOLOTransform
+        target_size: 640
+      target_transform: null
+    batch_size: 16
+    num_workers: 0
+  postpipeline:
+    _target_: src.pipeline.components.YOLOPostPipeline
+    save_dir: ${paths.output_dir}/annotations
+    save_name: results.json
+
+[2025-01-08 16:58:46,597][src.utils.utils][INFO] - 设置随机种子: 42
+[2025-01-08 16:58:46,598][main][INFO] - 实例化数据模块 <src.data.data_module.DataModule>
+[2025-01-08 16:58:46,829][VideoSource][INFO] - 初始化数据源: car
+[2025-01-08 16:58:46,829][VideoFrameProcessor][INFO] - 初始化处理器: video_frames
+[2025-01-08 16:58:46,829][DataModule][INFO] - 初始化数据处理模块...
+[2025-01-08 16:58:46,830][main][INFO] - 实例化标注模块 <src.models.labeling_module.LabelingModule>
+[2025-01-08 16:58:49,087][LabelingModule][INFO] - 初始化检测模块，使用模型: YOLODetector
+[2025-01-08 16:58:49,087][main][INFO] - 实例化流水线 <src.pipeline.pipeline_module.PipelineModule>
+[2025-01-08 16:58:49,098][PipelineModule][INFO] - 初始化推理流水线...
+[2025-01-08 16:58:49,098][main][INFO] - 开始执行流水线...
+[2025-01-08 16:58:49,098][PipelineModule][INFO] - 开始获取数据...
+[2025-01-08 16:58:49,098][DataModule][INFO] - 开始验证数据源...
+[2025-01-08 16:58:49,098][DataModule][INFO] - 开始获取数据...
+[2025-01-08 16:58:49,309][DataModule][INFO] - 验证数据格式...
+[2025-01-08 16:58:49,310][DataModule][INFO] - 使用 VideoFrameProcessor 处理数据...
+[2025-01-08 16:58:49,344][DataModule][INFO] - 数据处理完成
+[2025-01-08 16:58:49,344][PipelineModule][INFO] - 设置数据集...
+[2025-01-08 16:58:49,346][ImageDataset][INFO] - 加载标注文件: /Users/huzongxiang/Nutstore Files/我的坚果云/coding/labeling/datas/processed/video_frames/annotations/annotations.json
+[2025-01-08 16:58:49,346][ImageDataset][INFO] - 加载了 11 个图像，其中 0 个有标注
+[2025-01-08 16:58:49,347][ImagePrePipeline][INFO] - 数据集设置完成，样本数量: 11
+[2025-01-08 16:58:49,347][PipelineModule][INFO] - 开始执行自动标注...
+[2025-01-08 16:58:49,437][YOLODetector][INFO] - 开始YOLO检测，批次大小: 11
+[2025-01-08 16:58:51,228][PipelineModule][INFO] - 流水线执行完成

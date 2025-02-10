@@ -1,0 +1,19 @@
+# https://hydra.cc/docs/configure_hydra/intro/
+
+# enable color logging
+defaults:
+  - override hydra_logging: default
+  - override job_logging: default
+
+# output directory, generated dynamically on each run
+run:
+  dir: ${paths.output_dir}
+
+job:
+  chdir: true
+
+# 日志配置
+job_logging:
+  handlers:
+    file:
+      filename: ${hydra.runtime.output_dir}/labeling.log

@@ -1,0 +1,12 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - paths: default
+  - data: video  # 可以是 video, coco, image 等
+  - model: yolo  # 可以是 yolo, dino, sam, sahi, florence 等
+  - pipeline: pipeline
+  - hydra: default
+
+# 其他配置
+seed: 42 

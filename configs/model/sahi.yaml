@@ -1,0 +1,12 @@
+_target_: src.models.labeling_module.LabelingModule
+
+model:
+  _target_: src.models.components.sahi.SahiYOLODetector
+  model_name: "yolov8l.pt"  # YOLO模型名称
+  device: "cuda"
+  cache_dir: ${paths.cache_dir}
+  conf_thres: 0.25  # 置信度阈值
+  slice_size: 512  # 切片尺寸
+  overlap_ratio: 0.2  # 切片重叠比
+  classes: null  # 指定类别，null表示所有类别
+  

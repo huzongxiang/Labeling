@@ -1,0 +1,9 @@
+_target_: src.models.labeling_module.LabelingModule
+
+model:
+  _target_: src.models.components.SAM2Model
+  model_name: "facebook/sam2-hiera-large"
+  device: "cuda"
+  cache_dir: ${paths.cache_dir}
+  dtype: "bfloat16"
+  multimask_output: false

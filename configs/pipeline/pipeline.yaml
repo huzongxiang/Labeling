@@ -1,0 +1,26 @@
+defaults:
+  - default
+
+# 覆盖默认配置
+prepipeline:
+  dataset_cls:
+    transform:
+      _target_: src.pipeline.components.datasets.transform.YOLOTransform
+      target_size: 640
+  batch_size: 16
+
+postpipeline:
+  _target_: src.pipeline.components.YOLOPostPipeline
+
+# defaults:
+#   - default
+
+# # 覆盖默认配置
+# prepipeline:
+#   dataset_cls:
+#     transform: null
+
+# # 后处理流水线配置
+# postpipeline:
+#   # _target_: src.pipeline.components.YOLOPostPipeline
+#   _target_: src.pipeline.components.DetectionPostPipeline

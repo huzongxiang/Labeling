@@ -1,0 +1,19 @@
+# 默认流水线配置
+_target_: src.pipeline.pipeline_module.PipelineModule
+
+# 预处理流水线配置
+prepipeline:
+  _target_: src.pipeline.components.DefaultPrePipeline
+  dataset_cls:
+    _target_: src.pipeline.components.datasets.ImageDataset
+    _partial_: true
+    transform: null  # 可选的图像变换
+    target_transform: null  # 可选的标签变换
+  batch_size: 1
+  num_workers: 0
+
+# 后处理流水线配置
+postpipeline:
+  _target_: src.pipeline.components.DefaultPostPipeline
+  save_dir: ${paths.output_dir}/annotations
+  save_name: results.json 

@@ -1,0 +1,15 @@
+_target_: src.data.data_module.DataModule
+
+source:
+  _target_: src.data.components.source.VideoSource
+  video_path: "/Users/huzongxiang/Downloads/car.mp4"
+  data_dir: ${paths.data_dir}
+  start_frame: 0
+  end_frame: null
+  step: 10
+
+processor:
+  _target_: src.data.components.processor.VideoFrameProcessor
+  dataset_name: "video_frames"
+  data_dir: ${paths.data_dir}
+  save_format: "jpg" 

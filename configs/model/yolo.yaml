@@ -1,0 +1,10 @@
+_target_: src.models.labeling_module.LabelingModule
+
+model:
+  _target_: src.models.components.YOLODetector
+  model_name: "yolov8n.pt"
+  device: "cpu"
+  cache_dir: ${paths.cache_dir}
+  conf_thres: 0.25
+  iou_thres: 0.45
+  classes: [0]  # 0 表示 COCO 数据集中的 person 类别
